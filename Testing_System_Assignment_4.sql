@@ -107,12 +107,18 @@ LIMIT 1;
 
 -- Q11: thống kê mỗi phòng ban có bao nhiêu dev, test, scrum Master, Pm
 SELECT 
-    CV.ten_ChucVu, COUNT(A.id_ChucVu) AS 'số lượng thành viên'
+    D.Department_id,
+    D.Department_name,
+    CV.ten_ChucVu,
+    COUNT(A.id_ChucVu) AS 'số lượng thành viên'
 FROM
     account AS A
         LEFT JOIN
     chuc_vu AS CV ON A.id_ChucVu = CV.id_ChucVu
-GROUP BY A.id_ChucVu;
+        LEFT JOIN
+    department AS D ON A.Department_id = D.Department_id
+GROUP BY D.Department_id , CV.id_ChucVu;
+
 
 -- Q12: Lấy thông tin chi tiết của câu hỏi bao gồm: thông tin cơ bản của question, loại câu hỏi, ai là người tạo ra câu hỏi, câu trả lời là gì,...
 SELECT 
